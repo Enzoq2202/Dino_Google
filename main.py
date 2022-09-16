@@ -29,6 +29,9 @@ player = Trex()
 todas_sprites.add(player)
 vidas = 3
 jogo = True
+
+
+#loop para fazer a tela inicial.
 while jogo:
     window.blit(background, (0,0))
     text = font.render('Aperte Qualquer Tecla', False, (128,128,128))
@@ -64,7 +67,7 @@ while game:
     teclas = pygame.key.get_pressed()
     
     
-    #dando ações para as teclas apertadas
+    #dando ações para as teclas apertadas e atribuindo ações para o T-rex
     if teclas[pygame.K_UP] and not player.trex_pulando:
         player.trex_correndo = False
         player.trex_agachando = False 
@@ -86,9 +89,9 @@ while game:
     if contador <= -limite:
         contador = 0
     contador -= velocidade_background
-
     cenario = backgrounds[lista_backgrounds[index_background]]
     imagem_background = cenario['imagem']
+
 
     #Gerando os obstáculos
     while len(todos_obstaculos) < 2:
@@ -100,7 +103,7 @@ while game:
         if len(todos_obstaculos) < 2: 
             obstaculo.rect.x += 800 
 
-    #verificar se o T-rex colidiu com algum obstácul
+    #verificar se o T-rex colidiu com algum obstáculo e se sim, diminuir uma vida
     hit = pygame.sprite.spritecollide(player, todos_obstaculos, True, collided=pygame.sprite.collide_mask)
     if hit:
         vidas -= 1
@@ -122,7 +125,7 @@ while game:
     else:
         pontuacao += 1
 
-    
+    #atualizando a tela com as spritez
     todas_sprites.draw(window)
     todas_sprites.update()
     
